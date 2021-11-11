@@ -3,19 +3,26 @@
 // Dopo 30 secondi i numeri in pagina devono essere rimossi e l’utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt().
 // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 const btn = document.querySelector('.start')
+const reset = document.querySelector('.reset')
 const display = document.querySelector('.display')
 const timerDiplay = document.querySelector('.timer-display')
+
 const nums = []
 const numsInd = []
+
+
 btn.addEventListener('click', ()=> {
 	
 	for(let i = 0 ; i < 5; i++){
-		let num = getRndInt(10, 20);
+		let num = getRndInt(10, 100);
 		nums.push(num)
 		display.innerHTML= nums
-	}
+		btn.setAttribute('disabled', true);
+	}	
 
-	let timer = 5
+
+
+	let timer = 30
 	const secondID = setInterval(() => {
 		timer--
 		if(timer === 0){
@@ -36,24 +43,25 @@ btn.addEventListener('click', ()=> {
 			console.log(timer);
 			timerDiplay.innerHTML = timer 
 		}
+
+		reset.addEventListener('click', ()=>{
+			btn.removeAttribute('disabled', true);
+			display.innerHTML = 'Simon Says'
+			clearInterval(secondID)
+			timer = 30
+			timerDiplay.innerHTML = timer
+			nums.splice(0,nums.length)
+		})
+		
 	}, 1000);
 	
 	
-
 })
-
-
-
-
-
-
-
-
-
-
 
 
 
 function getRndInt(min, max) {
 	return Math.floor(Math.random() * (max - min) ) + min;
  }
+
+
