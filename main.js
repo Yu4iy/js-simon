@@ -16,32 +16,27 @@ btn.addEventListener('click', ()=> {
 	for(let i = 0 ; i < 5; i++){
 		let num = getRndInt(10, 100);
 		nums.push(num)
-		display.innerHTML= nums
+		display.innerHTM = nums
 		btn.setAttribute('disabled', true);
 	}	
 
-
+		
 
 	let timer = 30
 	const secondID = setInterval(() => {
 		timer--
 		if(timer === 0){
-			console.log('test');
 			display.innerHTML = ' '
 			timerDiplay.innerHTML = ' '
-			
-			for(let i = 0; i < 5; i++){
-				const userNum = parseInt(prompt('inserire numero'))
-				if(nums.includes(userNum)){
-					numsInd.push(userNum)
-				}
-			}
+			getUserNumber(numsInd, nums)
+		
 			display.innerHTML = `Hai indovinato ${numsInd.length} numeri	`
 			timerDiplay.innerHTML = `Numeri indovinati ${numsInd}`
 			clearInterval(secondID)
 		}else{
 			console.log(timer);
 			timerDiplay.innerHTML = timer 
+			display.innerHTML = nums
 		}
 
 		reset.addEventListener('click', ()=>{
@@ -65,3 +60,11 @@ function getRndInt(min, max) {
  }
 
 
+function getUserNumber(numsInd, nums){
+	for(let i = 0; i < 5; i++){
+		const userNum = parseInt(prompt('inserire numero'))
+		if(nums.includes(userNum)){
+			numsInd.push(userNum)
+		}
+	}
+}
